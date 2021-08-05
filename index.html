@@ -12,11 +12,30 @@
     <h3 id='message3'>Click on a category to get started.</h3>
     <div id='message4' class='space'>This is a list of random web applications developed by hFire24.</div>
     <div id="hub" class='four-list'>
+      <a class='hfire-link' onclick="openList('about')">About</a>
+      <a class='hfire-link' onclick="openList('important')">Important Pages</a>
       <a class='hfire-link' onclick="openList('tasks')">Break Pages</a>
       <a class='hfire-link' onclick="openList('calm')">Calm Pages</a>
       <a class='hfire-link' onclick="openList('games')">Games</a>
       <a class='hfire-link' onclick="openList('other')">Other Pages</a>
       <a id="forwardLink" class='hfire-link forward' style="display:none;" onclick="openList(lastList)">Go Forward</a>
+    </div>
+    <div id="about" class="hub-list small">
+      <p>Real Name: Jeffrey Wright</p>
+      <p><span id="age"></span> / M / Lafayette, IN, United States</p>
+      <p>hFire24 is a software developer who recently graduated from Purdue University. Languages that he has written code in include Java, JavaScript, Python, C#, and C. hFire24 also has had experience working with SQL databases.
+      hFire24 has taken college courses in Purdue University with a Bachelors of Science in Computer and Information Technology and Ivy Tech Community College with an Associates of Science in Software Development.
+      He also learned some languages on his own through resources like Skillshare, Mimo, and books.</p>
+      <p>Where did the name hFire24 come from? hFire24 thought "Fire" sounded cool (or more appropriately, hot), the "H" stands for "hot" since fire is hot, and hFire24 was 24 years old when he came up with that username, hence the "24".</p>
+      <p>Why does hFire24 code? Because he loves computers and working with them. When he started learning computer science in high school back in 2012, he thought programming was fun!
+      He was looking forward to making his own games and software using the programming skills he will acquire. Throughout all his coding experiences, hFire24 have faced numerous challenges involving programming He was able to overcome those challenges, and they have brought great satisfaction when overcame.</p>
+      <p>What does hFire24 want to do with all the skills he had acquired through formal education and self-learning? He wants to make some fun stuff through code! But more importantly, he wants to get into a company where he can demonstrate his skills! hFire24 will be happy to work for any company that makes him happy.</p>
+      <a class='hfire-link close' onclick="closeList('about')">Go Back</a>
+    </div>
+    <div id="important" class="hub-list">
+      <a class='hfire-link' href="../Practice/">Tech Store</a>
+      <span class="small">A website I made by watching a Skillshare course from Chris Dixon. This is more to show HTML, CSS, and Responsive Design skills and has no Javascript functions.</span>
+      <a class='hfire-link close' onclick="closeList('important')">Go Back</a>
     </div>
     <div id="tasks" class="hub-list">
       <a class='hfire-link' href="../TakeABreak/breaktime.html">Breaktime</a>
@@ -75,10 +94,23 @@
     <script>
     var lastList = "hub";
 
+    //Calculates my age through my birth date
+    var d = new Date();
+    var birthdate = new Date("1995/08/30");
+    var age = d.getFullYear() - birthdate.getFullYear();
+    var m = d.getMonth() - birthdate.getMonth();
+    if(m < 0 || (m === 0 && d.getDate() < birthdate.getDate()))
+      age--;
+    document.getElementById("age").innerHTML = age;
+
     function openList(id) {
       let category = document.getElementById("message3");
       let description = document.getElementById("message4");
       switch(id) {
+        case "important":
+          category.innerHTML = "Importnat Pages";
+          description.innerHTML = "These pages will impress employers the most."
+          break;
         case "tasks":
           category.innerHTML = "Tasks/Break Pages";
           description.innerHTML = "These pages are all about doing something."
@@ -95,9 +127,14 @@
           category.innerHTML = "Other Pages";
           description.innerHTML = "Just some miscellaneous pages I made."
           break;
+        case "about":
+          category.innerHTML = "About hFire24";
+          description.innerHTML = "Learn all about hFire24."
+          break;
       }
       document.getElementById("hub").style.display = "none";
-      document.getElementById(id).style.display = "grid";
+      var displayType = (id === "about") ? "block" : "grid";
+      document.getElementById(id).style.display = displayType
     }
 
     function closeList(id) {
